@@ -4,15 +4,15 @@ const fs = require('fs');
 const aad = require('azure-ad-jwt');
 const passport = require('../config/authentication.js');
 
-var isAuthenticated = function (req, res, next) {
-  // if user is authenticated in the session, call the next() to call the next request handler
-  // Passport adds this method to request object. A middleware is allowed to add properties to
-  // request and response objects
-  if (req.isAuthenticated())
-    return next();
-  // if the user is not authenticated then redirect him to the login page
-  res.redirect('/');
-}
+// var isAuthenticated = function (req, res, next) {
+//   // if user is authenticated in the session, call the next() to call the next request handler
+//   // Passport adds this method to request object. A middleware is allowed to add properties to
+//   // request and response objects
+//   if (req.isAuthenticated())
+//     return next();
+//   // if the user is not authenticated then redirect him to the login page
+//   res.redirect('/');
+// }
 
 
 
@@ -22,26 +22,26 @@ router.get('/', function(req, res, next) {
   res.render('login', {layout: 'login.hbs'});
 });
 
-router.post("/post", passport.authenticate("local"), function(req, res) {
-  console.log(req);
-  console.log(res);
-    // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
-    // So we're sending the user back the route to the members page because the redirect will happen on the front end
-    // They won't get this or even be able to access this page if they aren't authed
-    res.json("posting");
-  });
+// router.post("/post", passport.authenticate("local"), function(req, res) {
+//   console.log(req);
+//   console.log(res);
+//     // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
+//     // So we're sending the user back the route to the members page because the redirect will happen on the front end
+//     // They won't get this or even be able to access this page if they aren't authed
+//     res.json("posting");
+//   });
 
 
-//* GET Home Page */
-router.get('/index', isAuthenticated, function(req, res){
-  res.render('index', { user: req.user });
-});
+// //* GET Home Page */
+// router.get('/index', isAuthenticated, function(req, res){
+//   res.render('index', { user: req.user });
+// });
 
-//* Handle Logout */
-router.get('/signout', function(req, res) {
-  req.logout();
-  res.redirect('/');
-});
+// //* Handle Logout */
+// router.get('/signout', function(req, res) {
+//   req.logout();
+//   res.redirect('/');
+// });
 
 
 
