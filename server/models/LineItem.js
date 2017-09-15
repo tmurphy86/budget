@@ -1,18 +1,18 @@
 module.exports = function(sequelize, DataTypes) {
-    var LineItem = sequelize.define("line_items", {
-        item_name: {
+    var LineItem = sequelize.define("lineitem", {
+        name: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 len: [1, 45]
             }
         },
-        cost_reoccurance: {
+        reoccurance: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             DEFAULT: true,
         },
-        cost_model: {
+        model: {
             type: DataTypes.STRING,
             allowNull: false,
             defaultValue: "yearly",

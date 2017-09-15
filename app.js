@@ -4,18 +4,27 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+const passport = require('passport');
+var bunyan = require('bunyan');
+const session = require('express-session');
+require('assert-plus');
+require('restify');
+const Chart = require('chart.js');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var api = require('./routes/api');
-var OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
+const login = require('./routes/login');
 
-// // Add some logging
-// var log = bunyan.createLogger({
-//   name: 'Microsoft OIDC Example Web Application'
-// });
+
+// Add some logging
+var log = bunyan.createLogger({
+  name: 'Microsoft OIDC Example Web Application'
+});
 
 var app = express();
+//Models
+var models = require("./server/models");
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,17 +34,28 @@ app.set('view engine', 'hbs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+
+app.use('/login', login);
+
+
+// app.use(function(req, res, next) {       // Catches access to all other pages
+//     if(!req.session.accessToken) {       // requiring a valid access token
+//         res.redirect('/login');
+//     } else {
+//         next();
+//     }
+// });
 
 app.use('/', index);
-// require("./routes/index.js")(app);
-require("./routes/api.js")(app);
-// require("./routes/users.js")(app);
-
 app.use('/users', users);
-// app.use('/api', api);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -53,6 +73,19 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+
+ 
+//Sync Database
+models.sequelize.sync().then(function() {
+ 
+    console.log('Nice! Database looks fine')
+ 
+}).catch(function(err) {
+ 
+    console.log(err, "Something went wrong with the Database Update!")
+ 
 });
 
 module.exports = app;

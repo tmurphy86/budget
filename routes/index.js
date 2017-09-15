@@ -1,43 +1,102 @@
-
-// *********************************************************************************
-// html-routes.js - this file offers a set of routes for sending users to the various html pages
-// *********************************************************************************
-
-// Dependencies
-// =============================================================
-// var path = require("path");
-
-// // Routes
-// // =============================================================
-// module.exports = function(app) {
-
-//   // Each of the below routes just handles the HTML page that the user gets sent to.
-
-//   // index route loads view.html
-//   app.get("/", function(req, res) {
-//     res.sendFile(path.join(__dirname, "../public/blog.html"));
-//   });
-
-//   // app.get("/cms", function(req, res) {
-//   //   res.sendFile(path.join(__dirname, "../public/cms.html"));
-//   // });
-
-//   // // blog route loads blog.html
-//   // app.get("/blog", function(req, res) {
-//   //   res.sendFile(path.join(__dirname, "../public/blog.html"));
-//   // });
-
-// };
-
-
-
 var express = require('express');
 var router = express.Router();
+var db = require("../server/models");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   console.log("Index page hit");
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Prosperity Now Budgeting' });
 });
+
+
+router.get('/create/:object', function(req, res, next) {
+  console.log("create page hit");
+  var object = req.params.object;
+  res.render("create"+object, { title: 'Add ' + object});
+});
+
+router.get('/display/:object', function(req, res, next) {
+	var object = req.params.object;
+  res.render(object, { title: 'View ' + object});
+});
+
+
+
+router.post('/create/post/:object', function(req, res, next) {
+  console.log("Posting route hit");
+  var object = req.params.object;
+  db[object].create(req.body).then(function(object) {
+      res.json(object);
+    });
+});
+
+
+
+//APIs
+
+router.get('/api/lineitem', function(req, res, next) {
+  db.lineitem.findAll({}).then(function(object){
+  	res.json(object);
+  });
+});
+
+router.get('/api/category', function(req, res, next) {
+  db.category.findAll({}).then(function(object){
+    res.json(object);
+  });
+});
+
+
+
+
+// console.log("display page hit");
+//   var object = req.params.object;
+//   db.category.findAll({}).then(function(object){
+//   	res.json(object);
+//   });
+
+
+
+// router.post('/create/post/category', function(req, res, next) {
+//   console.log("Posting category route hit");
+//   db.category.create(req.body).then(function(res) {
+//       res.json(line);
+//     });
+// });
+
+// router.get('/lineitem/create', function(req, res, next) {
+//   console.log("create page hit");
+//   res.render('createlineitem', { title: 'Add Line Item' });
+// });
+
+// router.get('/category/create', function(req, res, next) {
+//   console.log("create cat page hit");
+//   res.render('createcat', { title: 'Add Category' });
+// });
+
+// router.post('/category/', function(req, res, next) {
+//   console.log("create cat page hit");
+//   res.render('createcat', { title: 'Add Category' });
+// });
+
+// router.post('/category/create', function(req, res, next) {
+//   console.log("create cat page hit");
+//   res.render('createcat', { title: 'Add Category' });
+// });
+
+// router.post('/add/:field', function(req, res) {
+
+
+// 	where: {
+// 		: req.body.category
+// 	}
+// }
+
+// app.get("/api/line", function(req, res) {
+//     console.log("Hitting line");
+//     db.line_items.findAll({}).then(function(line) {
+//       res.json(line);    
+//     });
+//   });
 
 module.exports = router;

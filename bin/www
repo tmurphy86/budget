@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-
+var env = require('dotenv').load();
 var app = require('../app');
 var debug = require('debug')('budget:server');
 var http = require('http');

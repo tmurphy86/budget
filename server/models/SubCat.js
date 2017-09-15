@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    var SubCat = sequelize.define("subcategory_tags", {
+    var SubCat = sequelize.define("subcategory", {
         subcategory_name: {
             type: DataTypes.STRING,
             allowNull: false,

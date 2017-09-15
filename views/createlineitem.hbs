@@ -1,22 +1,9 @@
-{{!-- <canvas id="myChart" width="400" height="400"></canvas> --}}
-
-<canvas id="doughnut-chart" width="800" height="450"></canvas>
-
-
-
-
-
-
-
-
-
-
-{{!-- <div class="row">
+<div class="row">
     <div class="col-md-8 col-md-offset-1">
-        <div id="lineAdd" style="display: none" novalidate>
+        <div>
             <br>
             <br>
-            <form>
+            <form id="lineAdd" novalidate>
                 <div class="row">
                     <div class="col-md-8 mb-3">
                         <label for="validationDefault01">Line Item</label>
@@ -24,11 +11,8 @@
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="validationDefault02">Category</label>
-                        <select class="custom-select d-block my-3" required>
+                        <select class="custom-select d-block my-3" id='categoryfill'required>
                             <option value="">Category Selection</option>
-                            {{#each catData}}
-                            <option value="{{this.category}}">{{this.category}}</option>
-                            {{/each}}
                         </select>
                     </div>
                 </div>
@@ -67,44 +51,18 @@
                     <div class="input-group">
                         <span class="input-group-addon">$</span>
                         <span class="input-group-addon">0.00</span>
-                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" required>
+                        <input type="text" id="money" class="form-control" aria-label="Amount (to the nearest dollar)" required>
                         <div class="invalid-feedback">
                             Please provide a valid cost.
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-primary" type="submit" id='item-form'>Submit form</button>
+                <div class="form-group">
+                <a class="btn btn-primary" type="submit" id='item-form' href='/display/lineitem'>Submit</a>
+                <a class="btn btn-primary" type="submit" href="/create/lineitem" id='item-form'>Add Another</a>
+                </div>
             </form>
-        </div>
-        <div class="budget-container" id='budget' style="display: block">
-            <h1>Budget</h1>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Line Item</th>
-                        <th>Cost</th>
-                        <th></th>
-                        <th>New Post</th>
-                        <th>Delete Author</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr id="form-row">
-                        <form id="author-form">
-                            <td colspan="4">
-                                <input placeholder="Enter a name" id="author-name" type="text" />
-                            </td>
-                            <td>
-                                <button type="submit" class="btn btn-success">Edit</button>
-                            </td>
-                        </form>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
 </div>
-
- --}}
- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <script src="/js/charts.js"></script>
+<script src="/js/lineitem.js"></script>
