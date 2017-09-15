@@ -6,7 +6,7 @@ const local = require('passport-local').Strategy;
 // const ClientPasswordStrategy = require('passport-oauth2-client-password').Strategy;
 // const BearerStrategy = require('passport-http-bearer').Strategy;
 var OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
-const config = require('../config');
+// const config = require('../config');
 
 passport.use(new local(
   // Our user will sign in using an email, rather than a "username"
