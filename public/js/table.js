@@ -17,7 +17,7 @@ $(document).ready(function() {
         _th_ = document.createElement('th'),
         _td_ = document.createElement('td');
 
-    // Builds the HTML Table out of myList json data from Ivy restful service.
+    // Builds the HTML Table out of myList json data from restful service.
     function buildHtmlTable(arr) {
         var table = _table_.cloneNode(false),
             columns = addAllColumnHeaders(arr, table);
@@ -34,9 +34,6 @@ $(document).ready(function() {
         return table;
     }
 
-    // Adds a header row to the table and returns the set of columns.
-    // Need to do union of keys from all records as some records may not contain
-    // all records
     function addAllColumnHeaders(arr, table) {
         var columnSet = [],
             tr = _tr_.cloneNode(false);
