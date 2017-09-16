@@ -41,8 +41,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-
 app.use('/login', login);
 
 
@@ -79,7 +77,7 @@ app.use(function(err, req, res, next) {
 
  
 //Sync Database
-models.sequelize.sync({ force: true }).then(function() {
+models.sequelize.sync({ force: false }).then(function() {
  
     console.log('Nice! Database looks fine')
  
