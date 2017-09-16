@@ -12,9 +12,7 @@ $(document).ready(function() {
 
     // A function to handle what happens when the form is submitted to create a new Author
     function handleItemFormSubmit(event) {
-        console.log("we are trying to submit");
         var form = document.getElementById("lineAdd");
-        console.log(form);
         if (form.checkValidity() == false) {
             console.log("check failed")
             event.preventDefault();
@@ -22,7 +20,6 @@ $(document).ready(function() {
         } else {
             form.classList.add("was-validated");
             console.log("check passed");
-
             upsertItem({
                 name: $("#item-name").val().trim(),
                 reoccurance: $("#costRe").val(),

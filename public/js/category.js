@@ -6,15 +6,14 @@ $(document).ready(function() {
     function handleCategoryFormSubmit(event) {
         event.preventDefault();
         var val = $("#category-name").val().trim();
-        console.log("value passed" + val);
         upsertCategory({
             name: $("#category-name").val().trim()
         });
+        $("#category-name").val('');
     }
 
     function upsertCategory(val) {
-        $.post('/create/post/category', val)
-            .then(console.log("sucess"));
+        $.post('/create/post/category', val);
     }
 
 });

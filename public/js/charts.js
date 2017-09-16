@@ -15,18 +15,21 @@ $(document).ready(function() {
 
 
 function chart(array){
-
     var chartCategory = [];
-    for (var i = 0; i < array.length; i++) {
+
+     for (var i = 0; i < array.length; i++) {
         chartCategory.push(array[i].name);
-    }.then(chartBuild(chartCategory)),
+    }
+
+    chartBuild(chartCategory);
+
 }
 
 function chartBuild(cleanArray){
     new Chart(document.getElementById("doughnut-chart"), {
         type: 'doughnut',
         data: {
-            labels: chartCategory,
+            labels: cleanArray,
             datasets: [{
                 label: "Cost (Thousands)",
                 backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
