@@ -10,6 +10,7 @@ const session = require('express-session');
 require('assert-plus');
 require('restify');
 const Chart = require('chart.js');
+// require('jQuery.print');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -78,7 +79,7 @@ app.use(function(err, req, res, next) {
 
  
 //Sync Database
-models.sequelize.sync().then(function() {
+models.sequelize.sync({ force: true }).then(function() {
  
     console.log('Nice! Database looks fine')
  

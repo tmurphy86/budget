@@ -8,5 +8,14 @@ module.exports = function(sequelize, DataTypes) {
             }
         }
     });
+
+    // Cat.associate = function(models) {
+    //     Cat.hasMany(models.lineitem, {
+    //         onDelete: 'cascade'
+    //     });
+
+    // };
+
+
     return Cat;
 }

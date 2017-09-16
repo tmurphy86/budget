@@ -28,20 +28,18 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
         description: {
-            type: DataTypes.BLOB
+            // type: DataTypes.BLOB
+            type: DataTypes.STRING,
         },
         archive: {
             type: DataTypes.BOOLEAN
         }
     });
 
-//     LineItem.associate = new function(models) {
-//     LineItem.hasMany(models.SubCat, {
-//         onDelete:'cascade'
+    LineItem.associate = function(models) {
+        LineItem.belongsTo(models.category, {});
 
-//     });
-
-// };
+    };
 
     return LineItem;
 };
