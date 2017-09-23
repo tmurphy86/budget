@@ -16,16 +16,20 @@ $(document).ready(function() {
 
 function chart(array){
     var chartCategory = [];
+    var catCost = [];
 
      for (var i = 0; i < array.length; i++) {
         chartCategory.push(array[i].name);
+        $.get("/api/lineitem/"+array[i].id, function(data) {
+            catCost.push(data);
+        });
     }
 
-    chartBuild(chartCategory);
+    chartBuild(chartCategory, catCost);
 
 }
 
-function chartBuild(cleanArray){
+function chartBuild(cleanArray, catCost){
     new Chart(document.getElementById("doughnut-chart"), {
         type: 'doughnut',
         data: {
@@ -33,7 +37,7 @@ function chartBuild(cleanArray){
             datasets: [{
                 label: "Cost (Thousands)",
                 backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                data: [2478, 5267, 734, 784, 433]
+                data: catCost
             }]
         },
         options: {

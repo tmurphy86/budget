@@ -1,3 +1,5 @@
+//front end js file for uploading data from submit form to DB for Line item handlebars
+
 $(document).ready(function() {
 
     $(document).on("click", "#item-form", handleItemFormSubmit);
@@ -13,6 +15,8 @@ $(document).ready(function() {
     // A function to handle what happens when the form is submitted to create a new Author
     function handleItemFormSubmit(event) {
         var form = document.getElementById("lineAdd");
+        var dog = $("#categoryfill").val();
+        console.log(dog);
         if (form.checkValidity() == false) {
             console.log("check failed")
             event.preventDefault();
@@ -20,13 +24,21 @@ $(document).ready(function() {
         } else {
             form.classList.add("was-validated");
             console.log("check passed");
+            var costRe;
+            if ($("#costRe").val()==='on'){
+                costRe = true;
+                console.log(costRe);
+            }else { 
+                costRe = false
+            }
             upsertItem({
                 name: $("#item-name").val().trim(),
-                reoccurance: $("#costRe").val(),
+                reoccurance: costRe,
                 model: $('#disabledSelect').val(),
                 cost: $('#money').val(),
                 description: $('#comment').val(),
-                archive: false,
+                categoryId: $("#categoryfill").val(),
+                archive: false
             });
         }
     }

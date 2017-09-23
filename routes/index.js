@@ -2,12 +2,11 @@ var express = require('express');
 var router = express.Router();
 var db = require("../server/models");
 
-/* GET home page. */
+// render the home page
 router.get('/', function(req, res, next) {
   console.log("Index page hit");
   res.render('index', { title: 'Prosperity Now Budgeting' });
 });
-
 
 router.get('/create/:object', function(req, res, next) {
   console.log("create page hit");
@@ -21,9 +20,7 @@ router.get('/display/:object', function(req, res, next) {
 });
 
 
-
 router.post('/create/post/:object', function(req, res, next) {
-  console.log("Posting route hit");
   var object = req.params.object;
   db[object].create(req.body).then(function(object) {
       res.json(object);
@@ -34,19 +31,40 @@ router.post('/create/post/:object', function(req, res, next) {
 
 //APIs
 
-router.get('/api/lineitem', function(req, res, next) {
-  db.lineitem.findAll({}).then(function(object){
+router.get('/api/:object', function(req, res, next) {
+  var object = req.params.object;
+  db[object].findAll({}).then(function(object){
   	res.json(object);
   });
 });
 
-router.get('/api/category', function(req, res, next) {
-  db.category.findAll({}).then(function(object){
-    res.json(object);
+// router.get('/api/category', function(req, res, next) {
+//   db.category.findAll({}).then(function(object){
+//     res.json(object);
+//   });
+// });
+
+router.get('/api/lineitem/:categoryId', function(req, res, next) {
+  db.lineitem.sum('cost', {
+    where: { 
+      categoryId: req.params.categoryId
+    }
+  }).then(sum=>{
+    res.json(sum);
   });
 });
 
+// router.get('/api/lineitem/:category', function(req, res, next) {
+//   db.lineitem.findAll({
+//     where:{
 
+//     }
+
+
+//   }).then(function(object){
+//     res.json(object);
+//   });
+// });
 
 
 // console.log("display page hit");
