@@ -1,10 +1,12 @@
+## Archived (only used for reference)
+
 budget.js
 ===========
 A NodeJS application to create and check your budget throughout a budget cycle against your actuals.
 
 ## General Overview
 
-**`budget.js`** is an express website on [Node.js](https://nodejs.org/) and mySQL datastore.
+**`budget.js`** is an express website on [Node.js](https://nodejs.org/), handlebars views, and mySQL datastore.
 
 Dependenancies:
 
@@ -72,7 +74,7 @@ npm install
 <a name="run"></a>
 
 ``` shell
-node  bamazon
+node  start
 ```
 
 
@@ -118,16 +120,4 @@ Viewing Selections:
 -Pie charts
 
 As this application is built and become more robust this readme will be updated to notate those changes.
-
-
-
-
-A store with command line interface store w/ a connected SQL Database
-
-## Table of Contents
-
-  1. [Documentation](#documentation)
-    1. [Installation](#installation)
-    2. [Run](#run)
-    3. [Examples](#examples)
 
